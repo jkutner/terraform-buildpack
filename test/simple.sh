@@ -37,10 +37,10 @@ variable "token" {}
 EOF
   pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
 
-  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
+  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-nested terraform version)
 
   docker rm tf-cnb-test
-  docker rmi -f tf-cnb-test-simple-root
+  docker rmi -f tf-cnb-test-simple-nested
   rm -rf $test_dir
 
   if echo "$actual" | grep -vq "0.14.4"; then
@@ -58,10 +58,10 @@ variable "token" {}
 EOF
   pack build --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
 
-  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
+  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-heroku-20 terraform version)
 
   docker rm tf-cnb-test
-  docker rmi -f tf-cnb-test-simple-root
+  docker rmi -f tf-cnb-test-simple-heroku-20
   rm -rf $test_dir
 
   if echo "$actual" | grep -vq "0.14.4"; then
