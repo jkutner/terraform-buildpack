@@ -1,6 +1,6 @@
 # Terraform Buildpack
 
-![CI](https://github.com/jkutner/terraform-buildpack/workflows/CI/badge.svg?branch=main&event=push) ![Version](https://img.shields.io/badge/dynamic/json?url=https://cnb-registry-api-staging.herokuapp.com/api/v1/buildpacks/jkutner/terraform&label=Version&query=$.latest.version)
+![CI](https://github.com/jkutner/terraform-buildpack/workflows/CI/badge.svg?branch=main&event=push) ![Version](https://img.shields.io/badge/dynamic/json?url=https://cnb-registry-api.herokuapp.com/api/v1/buildpacks/jkutner/terraform&label=Version&query=$.latest.version)
 
 
 This is a [Cloud Native Buildpack](https://buildpacks.io) for [Terraform](https://www.terraform.io/).
