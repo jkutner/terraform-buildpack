@@ -15,7 +15,7 @@ variable "token" {}
 EOF
   pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
 
-  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
+  actual=$(docker run --name tf-cnb-test tf-cnb-test-simple-root terraform version)
 
   docker rm tf-cnb-test
   docker rmi -f tf-cnb-test-simple-root
@@ -35,9 +35,9 @@ _test_simple_nested() {
   cat <<EOF > $test_dir/tf/modules/main.tf
 variable "token" {}
 EOF
-  pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
+  pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-nested --pull-policy if-not-present
 
-  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-nested terraform version)
+  actual=$(docker run --name tf-cnb-test tf-cnb-test-simple-nested terraform version)
 
   docker rm tf-cnb-test
   docker rmi -f tf-cnb-test-simple-nested
@@ -56,7 +56,7 @@ _test_simple_heroku_20() {
   cat <<EOF > main.tf
 variable "token" {}
 EOF
-  pack build --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
+  pack build --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-heroku-20 --pull-policy if-not-present
 
   actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-heroku-20 terraform version)
 
@@ -71,6 +71,6 @@ EOF
   return 0
 }
 
-_test_simple_root && echo "PASS: _test_simple_root"
-_test_simple_nested && echo "PASS: _test_simple_nested"
-_test_simple_heroku_20 && echo "PASS: _test_simple_nested"
+_test_simple_root && echo "PASS: _test_simple_root" || exit 1
+_test_simple_nested && echo "PASS: _test_simple_nested" || exit 1
+_test_simple_heroku_20 && echo "PASS: _test_simple_nested" || exit 1
