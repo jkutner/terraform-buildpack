@@ -16,8 +16,8 @@ jobs:
               name: Login to GitHub Package Registry
               uses: docker/login-action@v1
               with:
-                registry: ghcr.io
-                username: ${{ github.repository_owner }}
+                registry: docker.pkg.github.com
+                username: ${{ github.actor }}
                 password: ${{ secrets.GITHUB_TOKEN }}
             - id: setup-pack
               name: Setup Pack
