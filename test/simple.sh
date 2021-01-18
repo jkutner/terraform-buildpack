@@ -56,9 +56,9 @@ _test_simple_heroku_20() {
   cat <<EOF > main.tf
 variable "token" {}
 EOF
-  pack build --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-heroku-20 --pull-policy if-not-present
+  pack build --trust-builder --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-heroku-20 --pull-policy if-not-present
 
-  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-heroku-20 terraform version)
+  actual=$(docker run --name tf-cnb-test tf-cnb-test-simple-heroku-20 terraform version)
 
   docker rm tf-cnb-test
   docker rmi -f tf-cnb-test-simple-heroku-20
