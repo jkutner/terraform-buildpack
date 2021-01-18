@@ -32,24 +32,15 @@ jobs:
                 VERSION="$(cat buildpack.toml | yj -t | jq -r .buildpack.version)"
                 PACKAGE=${REPO}/$(echo "$BP_ID" | sed 's/\//_/g')
                 pack package-buildpack --publish ${PACKAGE}:${VERSION}
+                docker pull ${PACKAGE}:${VERSION}
+                DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
 
                 echo "::set-output name=bp_id::$BP_ID"
                 echo "::set-output name=version::$VERSION"
-                echo "::set-output name=package::$PACKAGE"
+                echo "::set-output name=address::${PACKAGE}@${DIGEST}"
               shell: bash
               env:
                 REPO: docker.pkg.github.com/${{ github.repository }}
-            # - id: resolve
-            #   name: Resolve Address
-            #   run: |
-            #     #!/usr/bin/env bash
-            #     set -euo pipefail
-            #     DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
-            #     echo "::set-output name=address::${PACKAGE}@${DIGEST}"
-            #   shell: bash
-            #   env:
-            #     PACKAGE: ${{ steps.package.outputs.package }}
-            #     VERSION: ${{ steps.package.outputs.version }}
             # - id: register
             #   name: Register Buildpack
             #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
@@ -57,4 +48,4 @@ jobs:
             #     token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
             #     id:      ${{ steps.package.outputs.bp_id }}
             #     version: ${{ steps.package.outputs.version }}
-            #     address: ${{ steps.resolve.outputs.address }}
+            #     address: ${{ steps.package.outputs.address }}
