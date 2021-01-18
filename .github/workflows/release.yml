@@ -48,8 +48,8 @@ jobs:
                 echo "::set-output name=address::${PACKAGE}@${DIGEST}"
               shell: bash
               env:
-                VERSION: ${{ steps.package.outputs.package }}
-                PACKAGE: ${{ steps.package.outputs.version }}
+                PACKAGE: ${{ steps.package.outputs.package }}
+                VERSION: ${{ steps.package.outputs.version }}
             # - id: register
             #   name: Register Buildpack
             #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
