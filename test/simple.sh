@@ -13,7 +13,7 @@ _test_simple_root() {
   cat <<EOF > main.tf
 variable "token" {}
 EOF
-  pack build -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
+  pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
 
   actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
 
@@ -35,7 +35,28 @@ _test_simple_nested() {
   cat <<EOF > $test_dir/tf/modules/main.tf
 variable "token" {}
 EOF
-  pack build -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
+  pack build --builder heroku/buildpacks:18 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
+
+  actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
+
+  docker rm tf-cnb-test
+  docker rmi -f tf-cnb-test-simple-root
+  rm -rf $test_dir
+
+  if echo "$actual" | grep -vq "0.14.4"; then
+    return 1
+  fi
+
+  return 0
+}
+
+_test_simple_heroku_20() {
+  test_dir=$(mktemp -d)
+  cd $test_dir
+  cat <<EOF > main.tf
+variable "token" {}
+EOF
+  pack build --builder heroku/buildpacks:20 -b $BP_DIR tf-cnb-test-simple-root --pull-policy if-not-present
 
   actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
 
