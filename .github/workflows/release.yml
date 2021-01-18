@@ -47,9 +47,9 @@ jobs:
                 DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
                 echo "::set-output name=address::${PACKAGE}@${DIGEST}"
               shell: bash
-              with:
-                version: ${{ steps.package.outputs.package }}
-                package: ${{ steps.package.outputs.version }}
+              env:
+                VERSION: ${{ steps.package.outputs.package }}
+                PACKAGE: ${{ steps.package.outputs.version }}
             # - id: register
             #   name: Register Buildpack
             #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
