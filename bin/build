@@ -15,7 +15,6 @@ install_terraform() {
   # create a layer for terrform
   local tf_layer=$layers_dir/terraform
 
-  local tf_url
   local tf_version=${TERRAFORM_VERSION:-"0.14.4"}
   local tf_sha=$(cat $CNB_BUILDPACK_DIR/files.json | jq -r .terraform.\"${tf_version}\".sha256)
   local tf_url=$(cat $CNB_BUILDPACK_DIR/files.json | jq -r .terraform.\"${tf_version}\".url)
