@@ -12,7 +12,7 @@ Build an image from any repo containing `.tf` files:
 $ pack build -b jkutner/terraform myapp
 ```
 
-Then run your Terrform commands, like `apply`:
+Then run your Terraform commands, like `apply`:
 
 ```
 $ docker run -it myapp terraform apply
