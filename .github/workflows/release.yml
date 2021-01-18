@@ -39,17 +39,17 @@ jobs:
               shell: bash
               env:
                 REPO: docker.pkg.github.com/${{ github.repository }}
-            - id: resolve
-              name: Resolve Address
-              run: |
-                #!/usr/bin/env bash
-                set -euo pipefail
-                DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
-                echo "::set-output name=address::${PACKAGE}@${DIGEST}"
-              shell: bash
-              env:
-                PACKAGE: ${{ steps.package.outputs.package }}
-                VERSION: ${{ steps.package.outputs.version }}
+            # - id: resolve
+            #   name: Resolve Address
+            #   run: |
+            #     #!/usr/bin/env bash
+            #     set -euo pipefail
+            #     DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
+            #     echo "::set-output name=address::${PACKAGE}@${DIGEST}"
+            #   shell: bash
+            #   env:
+            #     PACKAGE: ${{ steps.package.outputs.package }}
+            #     VERSION: ${{ steps.package.outputs.version }}
             # - id: register
             #   name: Register Buildpack
             #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
