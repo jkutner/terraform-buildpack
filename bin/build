@@ -25,16 +25,19 @@ install_terraform() {
       echo "Could not find URL for Terraform version $tf_version. Please check files.json."
       exit 1
     fi
+
     echo "Installing version ${tf_version}"
     echo "Downloading binary from ${tf_url}"
     rm -rf $tf_layer
     mkdir -p $tf_layer/bin
     curl --retry 3 -o $tf_layer/tf.zip -L "$tf_url"
     actual_sha="$(sha256sum $tf_layer/tf.zip | awk '{print $1}')"
+
     if [ "$tf_sha" != "$actual_sha" ]; then
       echo "Terraform SHA did not match expected value! The ZIP file may be corrupted."
       exit 1
     fi
+
     unzip $tf_layer/tf.zip -d $tf_layer/bin
     chmod +x $tf_layer/bin
     rm $tf_layer/tf.zip
