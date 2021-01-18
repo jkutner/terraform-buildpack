@@ -41,11 +41,11 @@ jobs:
               shell: bash
               env:
                 REPO: docker.pkg.github.com/${{ github.repository }}
-            # - id: register
-            #   name: Register Buildpack
-            #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
-            #   with:
-            #     token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
-            #     id:      ${{ steps.package.outputs.bp_id }}
-            #     version: ${{ steps.package.outputs.version }}
-            #     address: ${{ steps.package.outputs.address }}
+            - id: register
+              name: Register Buildpack
+              uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
+              with:
+                token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
+                id:      ${{ steps.package.outputs.bp_id }}
+                version: ${{ steps.package.outputs.version }}
+                address: ${{ steps.package.outputs.address }}
