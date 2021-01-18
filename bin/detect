@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -n "$(find . -name '*.tf')" ]; then
+  echo "Terraform"
+  exit 0
+fi
+
+echo "No .tf files found!"
+exit 1

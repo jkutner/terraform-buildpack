@@ -1,0 +1,8 @@
+{
+  "terraform":{
+    "0.14.4": {
+      "url": "https://releases.hashicorp.com/terraform/0.14.4/terraform_0.14.4_linux_amd64.zip",
+      "sha256": "042f1f4fb47696b3442eca12bce7cce6de0b477b299503ddad6b8bc3777a54b5"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+api = "0.4"
+
+[buildpack]
+id = "jkutner/terraform"
+version = "0.1.0"
+name = "Terraform Buildpack"
+homepage = "https://github.com/jkutner/terraform-buildpack"
+description = "Builds a container that runs Terraform commands"
+
+[[stacks]]
+id = "io.buildpacks.stacks.bionic"
+
+[[stacks]]
+id = "heroku-18"
+
+[[stacks]]
+id = "heroku-20"
