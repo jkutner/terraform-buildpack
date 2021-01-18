@@ -10,13 +10,13 @@ This is a [Cloud Native Buildpack](https://buildpacks.io) for [Terraform](https:
 Build an image from any repo containing `.tf` files:
 
 ```
-$ pack build -b jkutner/terraform myapp
+$ pack build -b jkutner/terraform -D terraform my-terraform
 ```
 
 Then run your Terraform commands, like `apply`:
 
 ```
-$ docker run -it myapp terraform apply
+$ docker run -it my-terraform apply
 ```
 
 You can load secrets by passing them on the command-line, or loading them into a volume mounted under `/workspace`.
