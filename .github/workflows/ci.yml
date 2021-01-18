@@ -15,7 +15,4 @@ jobs:
             - name: Setup Pack
               uses: buildpacks/github-actions/setup-pack@v3.1.0
             - name: Run Tests
-              run: |
-                #!/usr/bin/env bash
-                set -euo pipefail
-                make test
+              run: make test

@@ -17,7 +17,9 @@ EOF
 
   actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
 
-  echo "$actual" | grep "0.14.4"
+  if echo "$actual" | grep -vq "0.14.4"; then
+    return 1
+  fi
 
   docker rm tf-cnb-test
   docker rmi -f tf-cnb-test-simple-root
@@ -37,7 +39,9 @@ EOF
 
   actual=$(docker run --name tf-cnb-test -it tf-cnb-test-simple-root terraform version)
 
-  echo "$actual" | grep "0.14.4"
+  if echo "$actual" | grep -vq "0.14.4"; then
+    return 1
+  fi
 
   docker rm tf-cnb-test
   docker rmi -f tf-cnb-test-simple-root
