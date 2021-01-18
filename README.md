@@ -1,6 +1,6 @@
 # Terraform Buildpack
 
-![CI](https://github.com/jkutner/terraform-buildpack/workflows/CI/badge.svg?branch=master&event=push)
+![CI](https://github.com/jkutner/terraform-buildpack/workflows/CI/badge.svg?branch=main&event=push)
 
 This is a [Cloud Native Buildpack](https://buildpacks.io) for [Terraform](https://www.terraform.io/).
 
