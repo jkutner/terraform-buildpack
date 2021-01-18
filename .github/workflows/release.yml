@@ -18,7 +18,7 @@ jobs:
               with:
                 registry: ghcr.io
                 username: ${{ github.repository_owner }}
-                password: ${{ secrets.GHCR_TOKEN }}
+                password: ${{ secrets.GITHUB_TOKEN }}
             - id: setup-pack
               name: Setup Pack
               uses: buildpacks/github-actions/setup-pack@v4.0.0
@@ -36,12 +36,12 @@ jobs:
                 echo "::set-output name=address::${PACKAGE}@${DIGEST}"
               shell: bash
               env:
-                PACKAGE: ghcr.io/${{ github.repository_owner }}/buildpacks/jkutner_terraform
-            - id: register
-              name: Register Buildpack
-              uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
-              with:
-                token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
-                id:      jkutner/terraform
-                version: ${{ steps.package.outputs.version }}
-                address: ${{ steps.package.outputs.address }}
+                PACKAGE: docker.pkg.github.com/${{ github.repository }}/buildpackage
+            # - id: register
+            #   name: Register Buildpack
+            #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
+            #   with:
+            #     token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
+            #     id:      jkutner/terraform
+            #     version: ${{ steps.package.outputs.version }}
+            #     address: ${{ steps.package.outputs.address }}
