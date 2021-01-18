@@ -28,20 +28,32 @@ jobs:
                 #!/usr/bin/env bash
                 set -euo pipefail
 
+                BP_ID="$(cat buildpack.toml | yj -t | jq -r .buildpack.id)"
                 VERSION="$(cat buildpack.toml | yj -t | jq -r .buildpack.version)"
                 pack package-buildpack --publish ${PACKAGE}:${VERSION}
-                DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
 
+                echo "::set-output name=bp_id::$BP_ID"
                 echo "::set-output name=version::$VERSION"
-                echo "::set-output name=address::${PACKAGE}@${DIGEST}"
               shell: bash
               env:
                 PACKAGE: docker.pkg.github.com/${{ github.repository }}/buildpackage
+            - id: resolve
+              name: Resolve Address
+              run: |
+                #!/usr/bin/env bash
+                set -euo pipefail
+                DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
+                echo "::set-output name=address::${PACKAGE}@${DIGEST}"
+              shell: bash
+              with:
+                version: ${{ steps.package.outputs.version }}
+              env:
+                PACKAGE: docker.pkg.github.com/${{ github.repository }}
             # - id: register
             #   name: Register Buildpack
             #   uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.0.0
             #   with:
             #     token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
-            #     id:      jkutner/terraform
+            #     id:      ${{ steps.package.outputs.bp_id }}
             #     version: ${{ steps.package.outputs.version }}
             #     address: ${{ steps.package.outputs.address }}
