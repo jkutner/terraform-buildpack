@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# fail hard
+set -o pipefail
+# fail harder
 set -eu
 
 BP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.."
