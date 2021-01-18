@@ -73,3 +73,4 @@ EOF
 
 _test_simple_root && echo "PASS: _test_simple_root"
 _test_simple_nested && echo "PASS: _test_simple_nested"
+_test_simple_heroku_20 && echo "PASS: _test_simple_nested"
