@@ -37,7 +37,7 @@ jobs:
 
                 echo "::set-output name=bp_id::$BP_ID"
                 echo "::set-output name=version::$VERSION"
-                echo "::set-output name=address::${PACKAGE}@${DIGEST}"
+                echo "::set-output name=address::${DIGEST}"
               shell: bash
               env:
                 REPO: docker.pkg.github.com/${{ github.repository }}
